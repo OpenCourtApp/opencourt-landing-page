@@ -1,11 +1,15 @@
 import type { NextConfig } from "next";
 
+// Verifica se o build está rodando dentro do ambiente do GitHub Actions
+const isGithubActions = process.env.GITHUB_ACTIONS === "true";
+
 const nextConfig: NextConfig = {
-  output: 'export', // Ativa a exportação estática (gera a pasta 'out')
+  output: "export",
   images: {
-    unoptimized: true, // Obrigatório: o GitHub Pages não suporta a otimização de imagens padrão do Next
+    unoptimized: true,
   },
-  basePath: "/opencourt-landing-page",
+  // O basePath só será aplicado no GitHub Pages! Na Vercel ele fica vazio/falso.
+  basePath: isGithubActions ? "/opencourt-landing-page" : undefined,
 };
 
 export default nextConfig;
